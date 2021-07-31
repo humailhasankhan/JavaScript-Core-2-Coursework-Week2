@@ -68,20 +68,27 @@ function submitForm(event) {
         field.style.backgroundColor = "red";
         alert("Please enter valid email");
       }
-    }
-    if (field.value.length === 0) {
-      isValid = false;
-      field.style.backgroundColor = "red";
-      event.preventDefault();
-    } else if (field.value.length > 0 && isValidEmail) {
-      isValid = true;
-      field.style.backgroundColor = "white";
+    } else if (index === 1 || index === 2) {
+      if (field.value.length === 0 || field.value === "") {
+        isValid = false;
+        field.style.backgroundColor = "red";
+        event.preventDefault();
+      } else if (field.value.length > 0 && isValidEmail) {
+        isValid = true;
+        isValidEmail = true;
+        field.style.backgroundColor = "white";
+      } else {
+        isValid = false;
+        isValidEmail = false;
+      }
     }
   });
   if (isValid) {
     Array.from(allFormFields).map((field) => {
       field.style.backgroundColor = "white";
-      field.value = "";
+      const form = document.querySelector("form");
+      form.submit();
+      return form.reset();
     });
     alert("Thank you for filling out the form");
   }
